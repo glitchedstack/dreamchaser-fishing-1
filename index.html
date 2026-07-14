@@ -8,74 +8,73 @@
 
 <body>
 
-<header>
-<h1>🎣 Dreamchaser Fishing</h1>
-<p>The social network for fishermen</p>
-</header>
+body {
+font-family: Arial, sans-serif;
+background:#111;
+color:white;
+margin:0;
+}
 
 
-<div class="profile-box">
-
-<h2>Create Your Fisherman Profile</h2>
-
-<input id="username" placeholder="Your fisherman name">
-
-<button onclick="saveProfile()">
-Save Profile 👤
-</button>
-
-<h3 id="profile"></h3>
-
-</div>
+header {
+text-align:center;
+padding:20px;
+background:#064663;
+}
 
 
-
-<div class="post-box">
-
-<h2>Post Your Catch</h2>
-
-<input id="fishName" placeholder="Fish name">
-
-<input id="weight" placeholder="Weight (lbs)">
-
-<textarea id="story" placeholder="Tell your fishing story"></textarea>
-
-<input type="file" id="photo">
-
-<button onclick="addPost()">
-Post Catch 🎣
-</button>
-
-</div>
+nav {
+display:flex;
+justify-content:space-around;
+padding:15px;
+background:#222;
+}
 
 
+button {
+border:none;
+padding:10px;
+border-radius:20px;
+cursor:pointer;
+}
 
-<h2 class="title">
-Fishing Feed
-</h2>
+
+.post-box,
+.post {
+background:#222;
+margin:20px auto;
+padding:20px;
+border-radius:15px;
+max-width:600px;
+}
 
 
-<div id="feed"></div>
+input,
+textarea {
+width:100%;
+margin:8px 0;
+padding:12px;
+border-radius:10px;
+border:none;
+}
 
 
-</body>
-</html>
+textarea {
+height:80px;
+}
 
-<div class="trophy-box">
 
-<h2>🏆 Trophy Room</h2>
+.post img {
+width:100%;
+border-radius:15px;
+}
 
-<h3 id="trophy">
-No catches yet
-</h3>
 
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="supabase.js"></script>
-
-<script src="script.js"></script>
-
+.post-btn {
+background:#00a86b;
+color:white;
+width:100%;
+}
+  
 </body>
 </html>
