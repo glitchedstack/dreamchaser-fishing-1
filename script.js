@@ -286,6 +286,65 @@ trophy.innerHTML =
 " lbs " +
 fish;
 
+  async function signup(){
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+
+let username =
+prompt("Choose your fisherman username 🎣");
+
+
+let {data,error} =
+await supabase.auth.signUp({
+email,
+password
+});
+
+
+if(error){
+alert(error.message);
+return;
+}
+
+
+let user = data.user;
+
+
+let {error:profileError} =
+await supabase
+.from("profiles")
+.insert([{
+
+id: user.id,
+
+username: username,
+
+bio: "New fisherman 🎣",
+
+avatar_url: ""
+
+}]);
+
+
+if(profileError){
+
+console.log(profileError);
+
+alert("Account created but profile failed");
+
+return;
+
+}
+
+
+alert("Welcome to Dreamchaser Fishing! 🎣");
+
+}
 }
 
 }
