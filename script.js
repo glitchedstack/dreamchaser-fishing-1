@@ -31,10 +31,7 @@ document.getElementById("profile").innerHTML =
 
 }
 
-
-
-
-function addPost(){
+async function addPost(){
 
 let fish =
 document.getElementById("fishName").value;
@@ -45,22 +42,85 @@ document.getElementById("weight").value;
 let story =
 document.getElementById("story").value;
 
+let imageFile =
+document.getElementById("image").files[0];
 
-let post = {
 
-user: username,
+let imageUrl = "";
 
-fish: fish,
+// Upload picture if one was chosen
+if(imageFile){
+
+let fileName =
+Date.now() + "-" + imageFile.name;
+
+
+let { data: uploadData, error: uploadError } =
+await supabase.storage
+.from("fish-images")
+.upload(fileName, imageFile);
+
+
+if(uploadError){
+alert("Photo upload failed");
+console.log(uploadError);
+return;
+}
+
+
+let { data } =
+supabase.storage
+.from("fish-images")
+.getPublicUrl(fileName);
+
+
+imageUrl = data.publicUrl;
+
+}
+
+
+// Save catch post
+
+let { error } =
+await supabase
+.from("catches")
+.insert([{
+
+fish_name: fish,
 
 weight: Number(weight),
 
 story: story,
 
-likes: 0,
+image_url: imageUrl
 
-comments: []
+}]);
 
-};
+
+if(error){
+
+console.log(error);
+alert("Post failed");
+
+return;
+
+}
+
+
+alert("Catch posted! 🎣");
+
+
+document.getElementById("fishName").value="";
+document.getElementById("weight").value="";
+document.getElementById("story").value="";
+document.getElementById("image").value="";
+
+}
+
+
+
+
+
 
 
 posts.unshift(post);
