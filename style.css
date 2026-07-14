@@ -1,0 +1,78 @@
+body {
+background: #06283D;
+color: white;
+font-family: Arial, sans-serif;
+padding: 20px;
+}
+
+header {
+text-align: center;
+}
+
+h1 {
+font-size: 35px;
+}
+
+.post-box {
+background: #1363DF;
+padding: 20px;
+border-radius: 15px;
+max-width: 500px;
+margin: auto;
+}
+
+input, textarea, button {
+width: 100%;
+padding: 12px;
+margin-top: 10px;
+border-radius: 10px;
+border: none;
+box-sizing: border-box;
+}
+
+textarea {
+height: 100px;
+}
+
+button {
+background: #00B4D8;
+color: white;
+font-size: 18px;
+cursor: pointer;
+}
+
+.title {
+text-align: center;
+}
+
+.post {
+background: #1B4965;
+padding: 15px;
+margin-top: 15px;
+border-radius: 15px;
+max-width: 500px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.post img {
+width: 100%;
+border-radius: 10px;
+margin-top: 10px;
+}
+
+.profile-box {
+background:#0E7490;
+padding:20px;
+border-radius:15px;
+max-width:500px;
+margin:20px auto;
+}
+
+.trophy-box {
+background:#14532D;
+padding:20px;
+border-radius:15px;
+max-width:500px;
+margin:20px auto;
+}

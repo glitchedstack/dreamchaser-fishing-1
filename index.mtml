@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Dreamchaser Fishing 🎣</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>🎣 Dreamchaser Fishing</h1>
+<p>The social network for fishermen</p>
+</header>
+
+
+<div class="profile-box">
+
+<h2>Create Your Fisherman Profile</h2>
+
+<input id="username" placeholder="Your fisherman name">
+
+<button onclick="saveProfile()">
+Save Profile 👤
+</button>
+
+<h3 id="profile"></h3>
+
+</div>
+
+
+
+<div class="post-box">
+
+<h2>Post Your Catch</h2>
+
+<input id="fishName" placeholder="Fish name">
+
+<input id="weight" placeholder="Weight (lbs)">
+
+<textarea id="story" placeholder="Tell your fishing story"></textarea>
+
+<input type="file" id="photo">
+
+<button onclick="addPost()">
+Post Catch 🎣
+</button>
+
+</div>
+
+
+
+<h2 class="title">
+Fishing Feed
+</h2>
+
+
+<div id="feed"></div>
+
+
+</body>
+</html>
+
+<div class="trophy-box">
+
+<h2>🏆 Trophy Room</h2>
+
+<h3 id="trophy">
+No catches yet
+</h3>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
