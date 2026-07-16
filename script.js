@@ -1,98 +1,143 @@
-let username = localStorage.getItem("username") || "";
+// Dreamchaser Fishing App
 
-let posts = JSON.parse(localStorage.getItem("posts")) || [];
-
-
-window.onload = function(){
-
-if(username){
-document.getElementById("profile").innerHTML =
-"🎣 Welcome " + username;
-}
-
-showPosts();
-
-updateTrophy();
-
-}
+let currentUser = null;
 
 
+// Check login when app starts
+window.onload = async function(){
 
-function saveProfile(){
+const { data } = await supabase.auth.getUser();
 
-username =
-document.getElementById("username").value;
+if(data.user){
 
-localStorage.setItem("username", username);
+currentUser = data.user;
 
+document.getElementById("loginPage").style.display = "none";
+document.getElementById("app").style.display = "block";
 
-document.getElementById("profile").innerHTML =
-"🎣 Welcome " + username;
+loadPosts();
 
 }
+
+};
+
+
+// Sign Up
+
+async function signup(){
+
+let email = document.getElementById("email").value;
+
+let password = document.getElementById("password").value;
+
+let username = prompt("Choose your fisherman username 🎣");
+
+
+let {data,error} = await supabase.auth.signUp({
+
+email,
+password
+
+});
+
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+
+await supabase
+.from("profiles")
+.insert([{
+
+id:data.user.id,
+username:username,
+bio:"New fisherman 🎣",
+profile_image:""
+
+}]);
+
+
+alert("Welcome to Dreamchaser Fishing! 🎣");
+
+}
+
+
+
+// Login
+
+async function login(){
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+
+let {data,error} =
+await supabase.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+
+currentUser = data.user;
+
+
+document.getElementById("loginPage").style.display="none";
+
+document.getElementById("app").style.display="block";
+
+
+loadPosts();
+
+}
+
+
+
+// Create Post
 
 async function addPost(){
+
 
 let fish =
 document.getElementById("fishName").value;
 
+
 let weight =
 document.getElementById("weight").value;
+
 
 let story =
 document.getElementById("story").value;
 
-let imageFile =
-document.getElementById("image").files[0];
 
 
-let imageUrl = "";
-
-// Upload picture if one was chosen
-if(imageFile){
-
-let fileName =
-Date.now() + "-" + imageFile.name;
-
-
-let { data: uploadData, error: uploadError } =
-await supabase.storage
-.from("fish-images")
-.upload(fileName, imageFile);
-
-
-if(uploadError){
-alert("Photo upload failed");
-console.log(uploadError);
-return;
-}
-
-
-let { data } =
-supabase.storage
-.from("fish-images")
-.getPublicUrl(fileName);
-
-
-imageUrl = data.publicUrl;
-
-}
-
-
-// Save catch post
-
-let { error } =
-await supabase
-.from("catches")
+let {error} = await supabase
+.from("posts")
 .insert([{
 
-fish_name: fish,
+user_id: currentUser.id,
 
-weight: Number(weight),
+caption: story,
 
-story: story,
+fish_type: fish,
 
-image_url: imageUrl
+weight: weight || null
 
 }]);
 
@@ -110,38 +155,30 @@ return;
 alert("Catch posted! 🎣");
 
 
-document.getElementById("fishName").value="";
-document.getElementById("weight").value="";
-document.getElementById("story").value="";
-document.getElementById("image").value="";
+loadPosts();
 
 }
 
 
 
+// Load Feed
+
+async function loadPosts(){
 
 
+let {data,error} = await supabase
+.from("posts")
+.select("*")
+.order("created_at",{ascending:false});
 
 
-posts.unshift(post);
+if(error){
 
-
-localStorage.setItem(
-"posts",
-JSON.stringify(posts)
-);
-
-
-showPosts();
-
-updateTrophy();
+console.log(error);
+return;
 
 }
 
-
-
-
-function showPosts(){
 
 let feed =
 document.getElementById("feed");
@@ -150,201 +187,36 @@ document.getElementById("feed");
 feed.innerHTML="";
 
 
-posts.forEach((post,index)=>{
+data.forEach(post=>{
 
 
 feed.innerHTML += `
 
 <div class="post">
 
-<h3>👤 ${post.user}</h3>
+<h3>🎣 Angler</h3>
 
-<h2>🐟 ${post.fish}</h2>
+<h2>🐟 ${post.fish_type || "Fishing Post"}</h2>
 
-<p>⚖️ ${post.weight} lbs</p>
-
-<p>${post.story}</p>
+<p>${post.caption || ""}</p>
 
 
-<button onclick="like(${index})">
+<p>
+⚖️ ${post.weight ? post.weight+" lbs" : ""}
+</p>
 
-❤️ Like ${post.likes}
 
+<button>
+❤️ Like
 </button>
-
-
-<br><br>
-
-
-<input id="comment${index}"
-placeholder="Comment">
-
-
-<button onclick="addComment(${index})">
-
-💬 Comment
-
-</button>
-
-
-<div>
-
-${post.comments.map(c =>
-"<p>💬 "+c+"</p>"
-).join("")}
-
-</div>
 
 
 </div>
 
 `;
 
-});
-
-
-}
-
-
-
-
-function like(index){
-
-posts[index].likes++;
-
-save();
-
-}
-
-
-
-
-function addComment(index){
-
-let box =
-document.getElementById(
-"comment"+index
-);
-
-
-posts[index].comments.push(
-box.value
-);
-
-
-save();
-
-}
-
-
-
-
-function save(){
-
-localStorage.setItem(
-"posts",
-JSON.stringify(posts)
-);
-
-showPosts();
-
-}
-
-
-
-
-function updateTrophy(){
-
-let biggest = 0;
-let fish = "";
-
-
-posts.forEach(post=>{
-
-if(post.weight > biggest){
-
-biggest = post.weight;
-
-fish = post.fish;
-
-}
 
 });
 
-
-let trophy =
-document.getElementById(
-"trophy"
-);
-
-
-if(trophy){
-
-trophy.innerHTML =
-"🏆 Biggest Catch: "
-+ biggest +
-" lbs " +
-fish;
-
-  async function signup(){
-
-let email =
-document.getElementById("email").value;
-
-let password =
-document.getElementById("password").value;
-
-
-let username =
-prompt("Choose your fisherman username 🎣");
-
-
-let {data,error} =
-await supabase.auth.signUp({
-email,
-password
-});
-
-
-if(error){
-alert(error.message);
-return;
-}
-
-
-let user = data.user;
-
-
-let {error:profileError} =
-await supabase
-.from("profiles")
-.insert([{
-
-id: user.id,
-
-username: username,
-
-bio: "New fisherman 🎣",
-
-avatar_url: ""
-
-}]);
-
-
-if(profileError){
-
-console.log(profileError);
-
-alert("Account created but profile failed");
-
-return;
-
-}
-
-
-alert("Welcome to Dreamchaser Fishing! 🎣");
-
-}
-}
 
 }
