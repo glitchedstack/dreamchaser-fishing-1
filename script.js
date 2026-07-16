@@ -348,7 +348,3 @@ alert("Welcome to Dreamchaser Fishing! 🎣");
 }
 
 }
-
-async function signup(){
-...
-}
