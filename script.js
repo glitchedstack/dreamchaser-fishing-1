@@ -220,7 +220,8 @@ feed.innerHTML += `
 
 
 });
-
+  
+} // CLOSE loadPosts HERE
   async function logout(){
 
 await db.auth.signOut();
