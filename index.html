@@ -65,6 +65,26 @@ Login
 </div>
   
 <div id="app" style="display:none;">
+  <nav id="navBar">
+
+<button onclick="showFeed()">
+🎣 Feed
+</button>
+
+<button onclick="showCatch()">
+📸 Catch
+</button>
+
+<button onclick="showChat()">
+💬 Chat
+</button>
+
+<button onclick="showProfile()">
+👤 Profile
+</button>
+
+</nav>
+  
   <header>
 <h1>🎣 Dreamchaser Fishing 🐟</h1>
 <p>The social network for fishermen</p>
@@ -90,7 +110,42 @@ Post Catch 🎣
 </div>
 
 
+<div id="feedPage">
+
 <div id="feed"></div>
+
+</div>
+
+
+<div id="catchPage" style="display:none;">
+
+<h2>📸 Create a Catch</h2>
+
+</div>
+
+
+<div id="chatPage" style="display:none;">
+
+<h2>💬 Fishing Chat</h2>
+
+<p>Coming soon 🎣</p>
+
+</div>
+
+
+<div id="profilePage" style="display:none;">
+
+<h2>👤 Fisherman Profile</h2>
+
+<p id="profileUsername">
+Angler
+</p>
+
+<p>
+🎣 Bio coming soon
+</p>
+
+</div>
 
 <div id="trophy"></div>
 
