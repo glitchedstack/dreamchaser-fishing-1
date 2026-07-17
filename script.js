@@ -1,8 +1,5 @@
 // Dreamchaser Fishing App
-alert("Dreamchaser script loaded 🎣");
-
 let currentUser = null;
-
 
 // Check login when app starts
 window.onload = async function(){
