@@ -26,11 +26,14 @@ loadPosts();
 
 async function signup(){
 
-let email = document.getElementById("email").value;
+let username =
+document.getElementById("signupUsername").value;
 
-let password = document.getElementById("password").value;
+let email =
+document.getElementById("signupEmail").value;
 
-let username = prompt("Choose your fisherman username 🎣");
+let password =
+document.getElementById("signupPassword").value;
 
 
 let { data, error } = await db.auth.signUp({
@@ -72,10 +75,10 @@ alert("Welcome to Dreamchaser Fishing! 🎣");
 async function login(){
 
 let email =
-document.getElementById("email").value;
+document.getElementById("loginEmail").value;
 
 let password =
-document.getElementById("password").value;
+document.getElementById("loginPassword").value;
 
 
 let {data,error} =
@@ -227,5 +230,24 @@ currentUser = null;
 document.getElementById("app").style.display = "none";
 
 document.getElementById("loginPage").style.display = "block";
+
+}
+
+// Switch to Signup page
+function showSignup(){
+
+document.getElementById("loginBox").style.display="none";
+
+document.getElementById("signupBox").style.display="block";
+
+}
+
+
+// Switch to Login page
+function showLogin(){
+
+document.getElementById("signupBox").style.display="none";
+
+document.getElementById("loginBox").style.display="block";
 
 }
