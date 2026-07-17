@@ -16,7 +16,8 @@ document.getElementById("loginPage").style.display = "none";
 document.getElementById("app").style.display = "block";
 
 loadPosts();
-
+  
+showFeed();
 }
 
 };
@@ -107,7 +108,8 @@ document.getElementById("app").style.display="block";
 
 
 loadPosts();
-
+  
+showFeed();
 }
 
 
