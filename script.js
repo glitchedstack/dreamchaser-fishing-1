@@ -31,32 +31,32 @@ let password = document.getElementById("password").value;
 let username = prompt("Choose your fisherman username 🎣");
 
 
-let {data,error} = await supabase.auth.signUp({
-
-email,
-password
-
+let { data, error } = await supabase.auth.signUp({
+  email,
+  password
 });
 
-
-if(error){
-
-alert(error.message);
-return;
-
+if (error) {
+  alert(error.message);
+  return;
 }
 
+// Make sure a user was actually created
+if (!data.user) {
+  alert("Please check your email to confirm your account.");
+  return;
+}
 
 await supabase
-.from("profiles")
-.insert([{
-
-id:data.user.id,
-username:username,
-bio:"New fisherman 🎣",
-profile_image:""
-
-}]);
+  .from("profiles")
+  .insert([
+    {
+      id: data.user.id,
+      username: username,
+      bio: "New fisherman 🎣",
+      profile_image: ""
+    }
+  ]);
 
 
 alert("Welcome to Dreamchaser Fishing! 🎣");
