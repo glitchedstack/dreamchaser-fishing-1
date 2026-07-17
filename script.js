@@ -252,3 +252,51 @@ document.getElementById("signupBox").style.display="none";
 document.getElementById("loginBox").style.display="block";
 
 }
+
+function hidePages(){
+
+document.getElementById("feedPage").style.display="none";
+
+document.getElementById("catchPage").style.display="none";
+
+document.getElementById("chatPage").style.display="none";
+
+document.getElementById("profilePage").style.display="none";
+
+}
+
+
+function showFeed(){
+
+hidePages();
+
+document.getElementById("feedPage").style.display="block";
+
+}
+
+
+function showCatch(){
+
+hidePages();
+
+document.getElementById("catchPage").style.display="block";
+
+}
+
+
+function showChat(){
+
+hidePages();
+
+document.getElementById("chatPage").style.display="block";
+
+}
+
+
+function showProfile(){
+
+hidePages();
+
+document.getElementById("profilePage").style.display="block";
+
+}
