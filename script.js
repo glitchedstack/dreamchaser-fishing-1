@@ -1,4 +1,5 @@
 // Dreamchaser Fishing App
+alert("Dreamchaser script loaded 🎣");
 
 let currentUser = null;
 
