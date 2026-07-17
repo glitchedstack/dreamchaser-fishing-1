@@ -1,10 +1,12 @@
 // Dreamchaser Fishing App
-let currentUser = null;
 
+const db = window.db;
+
+let currentUser = null;
 // Check login when app starts
 window.onload = async function(){
 
-const { data } = await supabase.auth.getUser();
+const { data } = await db.auth.getUser();
 
 if(data.user){
 
@@ -31,7 +33,7 @@ let password = document.getElementById("password").value;
 let username = prompt("Choose your fisherman username 🎣");
 
 
-let { data, error } = await supabase.auth.signUp({
+let { data, error } = await db.auth.signUp({
   email,
   password
 });
@@ -47,7 +49,7 @@ if (!data.user) {
   return;
 }
 
-await supabase
+await db
   .from("profiles")
   .insert([
     {
