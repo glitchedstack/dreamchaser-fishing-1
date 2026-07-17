@@ -31,7 +31,7 @@ let password = document.getElementById("password").value;
 let username = prompt("Choose your fisherman username 🎣");
 
 
-let {data,error} = await db.auth.signUp({
+let {data,error} = await supabase.auth.signUp({
 
 email,
 password
@@ -77,7 +77,7 @@ document.getElementById("password").value;
 
 
 let {data,error} =
-await db.auth.signInWithPassword({
+await supabase.auth.signInWithPassword({
 
 email,
 password
@@ -126,7 +126,7 @@ document.getElementById("story").value;
 
 
 let {error} = await 
-db.from("posts")
+supabase.from("posts")
 .insert([{
 
 user_id: currentUser.id,
