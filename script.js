@@ -218,5 +218,14 @@ feed.innerHTML += `
 
 });
 
+  async function logout(){
+
+await db.auth.signOut();
+
+currentUser = null;
+
+document.getElementById("app").style.display = "none";
+
+document.getElementById("loginPage").style.display = "block";
 
 }
