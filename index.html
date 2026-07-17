@@ -14,23 +14,53 @@ Logout
 <body>
 <div id="loginPage">
   
-  <h1>🎣 Dreamchaser Fishing</h1>
+<h1>🎣 Dreamchaser Fishing</h1>
 
 <p>The social network for fishermen</p>
 
-<input id="email" placeholder="Email">
+<div id="loginBox">
 
-<input id="password" type="password" placeholder="Password">
-  
+<input id="loginEmail" placeholder="Email">
+
+<input id="loginPassword" type="password" placeholder="Password">
+
 <button onclick="login()">
 Login
 </button>
 
-<h3>Create Account</h3>
+<p>
+New fisherman?
+<button onclick="showSignup()">
+Create Account
+</button>
+</p>
+
+</div>
+  
+<div id="loginPage">
+
+<div id="signupBox" style="display:none;">
+
+<h2>Create Your Angler Account 🎣</h2>
+
+<input id="signupUsername" placeholder="Fisherman Username">
+
+<input id="signupEmail" placeholder="Email">
+
+<input id="signupPassword" type="password" placeholder="Password">
 
 <button onclick="signup()">
 Sign Up
 </button>
+
+<p>
+Already have an account?
+<button onclick="showLogin()">
+Login
+</button>
+</p>
+
+</div>
 
 </div>
   
