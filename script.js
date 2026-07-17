@@ -79,7 +79,7 @@ document.getElementById("password").value;
 
 
 let {data,error} =
-await supabase.auth.signInWithPassword({
+await db.auth.signInWithPassword({
 
 email,
 password
@@ -128,7 +128,7 @@ document.getElementById("story").value;
 
 
 let {error} = await 
-supabase.from("posts")
+db.from("posts")
 .insert([{
 
 user_id: currentUser.id,
@@ -166,7 +166,7 @@ loadPosts();
 async function loadPosts(){
 
 
-let {data,error} = await supabase
+let {data,error} = await db
 .from("posts")
 .select("*")
 .order("created_at",{ascending:false});
