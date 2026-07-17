@@ -1,6 +1,6 @@
 // Dreamchaser Fishing App
 
-const db = supabase;
+const db = window.db;
 
 let currentUser = null;
 // Check login when app starts
